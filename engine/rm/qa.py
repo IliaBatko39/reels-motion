@@ -63,20 +63,20 @@ def run_qa(work, out, name='reel', stt=False, style=None):
                     continue
                 top = TOP_HOOK if b.get('type') in ('hook', 'question') or b['id'] in ('hook', 'question') else SAFE[1]
                 over = max(SAFE[0] - b['x0'], b['x1'] - SAFE[2], top - b['y0'], b['y1'] - SAFE[3])
-                if over > 0.5:
+                if over > 1.5:                      # допуск 1,5 px — сглаживание краёв
                     bad.append((n, b['id'], b['text'][:24], round(over, 1)))
                 w = worst.setdefault(b['id'], [9e9, 9e9, -9e9, -9e9])
                 w[0], w[1] = min(w[0], b['x0']), min(w[1], b['y0'])
                 w[2], w[3] = max(w[2], b['x1']), max(w[3], b['y1'])
                 if face and b['x0'] < face[2] and b['x1'] > face[0] and b['y0'] < face[3] and b['y1'] > face[1]:
                     hits.append((n, b['id'], b['text'][:20]))
-        # вход и выход (9 кадров от начала и конца каждого показа элемента) — движение, а не читаемый текст:
+        # вход и выход (9 кадров от начала и конца каждого показа каждого текста элемента) — движение, а не читаемый текст:
         # перелёт пружины, вылет за край при whip-выходе. Такие кадры печатаются отдельно и ошибкой не считаются.
         seen = {}
         for n_, bs_ in bx.items():
             for b_ in bs_:
                 if b_['opacity'] >= 0.5 and b_.get('alpha_max', 255) > 0:
-                    seen.setdefault(b_['id'], set()).add(int(n_))
+                    seen.setdefault((b_['id'], b_.get('text', '')), set()).add(int(n_))
         moving = set()
         for lid, frs in seen.items():
             frs = sorted(frs)
@@ -90,9 +90,11 @@ def run_qa(work, out, name='reel', stt=False, style=None):
             for r in runs:
                 for x in r:
                     if x - r[0] < 9 or r[-1] - x < 9:
-                        moving.add((lid, x))
-        transient = [b_ for b_ in bad if (b_[1], b_[0]) in moving]
-        bad = [b_ for b_ in bad if (b_[1], b_[0]) not in moving]
+                        moving.add((lid[0], lid[1][:24], x))
+        fastf = set(load_json(bxp).get('fast', []))          # кадры, где рендер снимал смаз движения
+        mv = lambda b_: (b_[1], b_[2], b_[0]) in moving or b_[0] in fastf
+        transient = [b_ for b_ in bad if mv(b_)]
+        bad = [b_ for b_ in bad if not mv(b_)]
         if transient:
             print('  (на входе или выходе — не ошибка, кадров %d: %s)' % (len(transient), transient[:4]))
         rec('Тексты в безопасной зоне', not bad, 'нарушений %d: %s | рамки: %s' % (
