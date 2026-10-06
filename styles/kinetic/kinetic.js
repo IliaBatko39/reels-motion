@@ -561,14 +561,14 @@ function init(ctx) {
 }
 
 // mount-функция этого стиля → компонент рантайма (ITEMS/FAST/SFX, накопленные при монтаже, привязываются к элементу)
-function comp(ctx, mountFn) {
+function comp(ctx, mountFn, id) {
   return {
     fastAlways: true,
     mount(root) {
       init(ctx);
       const i0 = ITEMS.length, f0 = FAST.length, s0 = SFX.length;
       mountFn(root);
-      for (const e of SFX.slice(s0)) ctx.sfx(e.tb + FZ, e.type, e.name, { gain_db: e.gain_db, dur: e.dur });
+      for (const e of SFX.slice(s0)) ctx.sfx(e.tb + FZ, e.type, id || e.name, { gain_db: e.gain_db, dur: e.dur, name: e.name });
       return { items: ITEMS.slice(i0), fast: FAST.slice(f0) };
     },
     update(st, t) {
@@ -602,10 +602,10 @@ function loopLines(l) {
 
 function hookEl(hk, ctx) {
   const P = ctx.plan;
-  return comp(ctx, root => mountHook(root, Object.assign({}, hk, { tip: P.tip && hk.pointer !== false ? P.tip : null })));
+  return comp(ctx, root => mountHook(root, Object.assign({}, hk, { tip: P.tip && hk.pointer !== false ? P.tip : null })), hk.id);
 }
-function ctaEl(c, ctx) { return comp(ctx, root => mountCTA(root, c)); }
-function blockEl(b, ctx) { return comp(ctx, root => mountTerm(root, BLOCKS[b.index], b.index)); }
+function ctaEl(c, ctx) { return comp(ctx, root => mountCTA(root, c), c.id); }
+function blockEl(b, ctx) { return comp(ctx, root => mountTerm(root, BLOCKS[b.index], b.index), b.id); }
 
 export default {
   name: 'kinetic',
@@ -614,13 +614,13 @@ export default {
   elements: {
     hook: hookEl,
     question: hookEl,
-    lead(L, ctx) { return comp(ctx, root => mountLead(root, L)); },
-    counter(spec, ctx) { return comp(ctx, root => { if (BLOCKS.length) mountCounter(root); }); },
+    lead(L, ctx) { return comp(ctx, root => mountLead(root, L), L.id); },
+    counter(spec, ctx) { return comp(ctx, root => { if (BLOCKS.length) mountCounter(root); }, spec.id); },
     block: blockEl,
     sphere: blockEl,
-    loop(l, ctx) { return comp(ctx, root => mountTeaser(root, l.id, loopLines(l), l.s - FZ, l.e - FZ)); },
+    loop(l, ctx) { return comp(ctx, root => mountTeaser(root, l.id, loopLines(l), l.s - FZ, l.e - FZ), l.id); },
     list(L, ctx) {
-      return comp(ctx, root => mountChips(root, L.id, L.items.map(it => [it.text.toUpperCase(), { start: it.t - FZ }]), L.e - FZ - 0.25));
+      return comp(ctx, root => mountChips(root, L.id, L.items.map(it => [it.text.toUpperCase(), { start: it.t - FZ }]), L.e - FZ - 0.25), L.id);
     },
     cta: ctaEl,
     answer: ctaEl,

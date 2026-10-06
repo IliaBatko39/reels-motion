@@ -70,20 +70,31 @@ def run_qa(work, out, name='reel', stt=False, style=None):
                 w[2], w[3] = max(w[2], b['x1']), max(w[3], b['y1'])
                 if face and b['x0'] < face[2] and b['x1'] > face[0] and b['y0'] < face[3] and b['y1'] > face[1]:
                     hits.append((n, b['id'], b['text'][:20]))
-        # выход за зону короче 6 кадров (0,2 с — перелёт пружины на входе, удар) не считается: важен читаемый текст, а не кадр пружины
-        runs = {}
-        for n, lid, txt, ov in sorted(bad):
-            runs.setdefault(lid, []).append(n)
-        def longest(fr):
-            best = cur = 1
-            for x, y in zip(fr, fr[1:]):
-                cur = cur + 1 if y == x + 1 else 1
-                best = max(best, cur)
-            return best
-        transient = [b_ for b_ in bad if longest(runs[b_[1]]) < 6]
-        bad = [b_ for b_ in bad if longest(runs[b_[1]]) >= 6]
+        # вход и выход (9 кадров от начала и конца каждого показа элемента) — движение, а не читаемый текст:
+        # перелёт пружины, вылет за край при whip-выходе. Такие кадры печатаются отдельно и ошибкой не считаются.
+        seen = {}
+        for n_, bs_ in bx.items():
+            for b_ in bs_:
+                if b_['opacity'] >= 0.5 and b_.get('alpha_max', 255) > 0:
+                    seen.setdefault(b_['id'], set()).add(int(n_))
+        moving = set()
+        for lid, frs in seen.items():
+            frs = sorted(frs)
+            runs, cur = [], [frs[0]]
+            for x in frs[1:]:
+                if x == cur[-1] + 1:
+                    cur.append(x)
+                else:
+                    runs.append(cur); cur = [x]
+            runs.append(cur)
+            for r in runs:
+                for x in r:
+                    if x - r[0] < 9 or r[-1] - x < 9:
+                        moving.add((lid, x))
+        transient = [b_ for b_ in bad if (b_[1], b_[0]) in moving]
+        bad = [b_ for b_ in bad if (b_[1], b_[0]) not in moving]
         if transient:
-            print('  (кратковременно, < 6 кадров перелёта или удара — не ошибка: %s)' % transient[:4])
+            print('  (на входе или выходе — не ошибка, кадров %d: %s)' % (len(transient), transient[:4]))
         rec('Тексты в безопасной зоне', not bad, 'нарушений %d: %s | рамки: %s' % (
             len(bad), bad[:5], '; '.join('%s x%.0f–%.0f y%.0f–%.0f' % (k, v[0], v[2], v[1], v[3]) for k, v in worst.items())))
         rec('Накладки не на лице', not hits, 'пересечений %d: %s' % (len(hits), hits[:5]))

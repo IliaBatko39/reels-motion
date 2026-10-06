@@ -66,8 +66,8 @@ def background(path, dur, cuts, seed=3, src_video=None):
             img = top * (1 - g) + np.array([12, 12, 16], np.float32) * g
             lx, ly = W * (0.3 + 0.4 * np.sin(t * 0.6 + k)), H * 0.25
             img += 70 * np.exp(-(((xx - lx) / 420) ** 2 + ((yy - ly) / 420) ** 2))[..., None]
-            cx, cy = W / 2, H * 0.32
-            head = (((xx - cx) / (125 * z)) ** 2 + ((yy - cy - 6 * np.sin(t * 2.1)) / (160 * z)) ** 2) < 1
+            cx, cy = W / 2, H * 0.33
+            head = (((xx - cx) / (125 * z)) ** 2 + ((yy - cy - 6 * np.sin(t * 2.1)) / (150 * z)) ** 2) < 1
             body = (((xx - cx) / (380 * z)) ** 2 + ((yy - (cy + 560 * z)) / (420 * z)) ** 2) < 1
             img[head | body] = img[head | body] * 0.25 + np.array([18, 16, 20], np.float32) * 0.75
             enc.stdin.write(np.clip(img, 0, 255).astype(np.uint8).tobytes())
@@ -85,7 +85,7 @@ def background(path, dur, cuts, seed=3, src_video=None):
 def timeline_a(total):
     return {
         'version': 1, 'template': 'A', 'fps': FPS, 'base': 'base.mov', 'words': 'words.json', 'cuts': CUTS_A,
-        'freeze': {'image': 'freeze.png', 'hold': 0.5, 'fingertip': [600, 1180]},
+        'freeze': {'image': 'freeze.png', 'hold': 0.5, 'fingertip': [583, 1152]},
         'hook': {'kicker': 'ВОТ', 'number': '3', 'lines': ['ПРАВИЛА', 'РИЛСА'], 'sub': ['которые держат', 'зрителя'],
                  'end': {'word': 'рилса', 'edge': 'end', 'offset': 0.2}, 'number_at': {'word': 'три'}, 'accent_at': {'word': 'сильного'}},
         'lead': {'title': '3 ПРАВИЛА', 'items': [
@@ -127,7 +127,7 @@ def timeline_test():
     """4 с: стоп-кадр с плашкой → лид → субтитры → призыв (для style-test и превью)."""
     return {
         'version': 1, 'template': 'A', 'fps': FPS, 'base': 'base.mov', 'words': 'words.json', 'cuts': [],
-        'freeze': {'image': 'freeze.png', 'hold': 0.5, 'fingertip': [600, 1180]},
+        'freeze': {'image': 'freeze.png', 'hold': 0.5, 'fingertip': [583, 1152]},
         'hook': {'kicker': 'ВОТ', 'number': '3', 'lines': ['ПРАВИЛА', 'РИЛСА'], 'sub': ['которые держат', 'зрителя'], 'end': 1.25,
                  'number_at': 0.3, 'accent_at': 0.9},
         'lead': {'title': '3 ПРАВИЛА', 'items': [
@@ -173,8 +173,8 @@ def make_project(out, template='A', project_tl=None):
         segs = []
         for k in range(len(bounds) - 1):
             z = 1.0 if k % 2 == 0 else 1.1
-            cx, cy = W / 2, H * 0.32
-            med = [round(cx - 125 * z), round(cy - 166 * z), round(cx + 125 * z), round(cy + 166 * z)]
+            cx, cy = W / 2, H * 0.33
+            med = [round(cx - 125 * z), round(cy - 156 * z), round(cx + 125 * z), round(cy + 156 * z)]
             segs.append({'seg': k, 't0': bounds[k], 't1': bounds[k + 1], 'n': 0, 'approx': False, 'med': med,
                          'box': [med[0] - 15, med[1] - 20, med[2] + 15, med[3] + 20], 'center': [cx, cy]})
         json.dump({'freeze': segs[0]['box'], 'segments': segs}, open(os.path.join(out, 'faces.json'), 'w'), indent=1)
