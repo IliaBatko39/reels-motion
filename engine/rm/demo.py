@@ -60,7 +60,7 @@ def background(path, dur, cuts, seed=3, src_video=None):
         for f in range(n):
             t = f / FPS
             k = sum(1 for c in cuts if t >= c)
-            z = 1.0 if k % 2 == 0 else 1.22
+            z = 1.0 if k % 2 == 0 else 1.1
             top = np.array(tones[k % len(tones)], np.float32)
             g = (yy / H)[..., None]
             img = top * (1 - g) + np.array([12, 12, 16], np.float32) * g
@@ -172,7 +172,7 @@ def make_project(out, template='A', project_tl=None):
         bounds = [0.0] + list(cuts) + [total]
         segs = []
         for k in range(len(bounds) - 1):
-            z = 1.0 if k % 2 == 0 else 1.22
+            z = 1.0 if k % 2 == 0 else 1.1
             cx, cy = W / 2, H * 0.32
             med = [round(cx - 125 * z), round(cy - 166 * z), round(cx + 125 * z), round(cy + 166 * z)]
             segs.append({'seg': k, 't0': bounds[k], 't1': bounds[k + 1], 'n': 0, 'approx': False, 'med': med,
