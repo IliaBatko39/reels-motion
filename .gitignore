@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+work/
+out/
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.m4a
+!docs/*.mp4
+.backups/
+.DS_Store

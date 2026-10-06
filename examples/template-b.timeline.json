@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "template": "B",
+  "fps": 30,
+  "base": "work/base.mov",
+  "words": "work/words.json",
+  "beats": "work/beats.json",
+  "faces": "work/faces.json",
+  "freeze": {"hold": 0.5},
+  "question": {"lines": ["СКОЛЬКО СТОИТ", "ОТКРЫТЬ КОФЕЙНЮ?"], "number": "?", "end": {"cut": 0}, "pointer": false},
+  "emotion": {
+    "words": ["ОГО,", "ЭТО", "БОЛЬНОЙ ВОПРОС"], "accent": 2,
+    "start": {"word": "ого"}, "end": {"cut": 1},
+    "at": [{"word": "ого"}, {"word": "это"}, {"word": "больной"}]
+  },
+  "spheres": [
+    {"num": 1, "name": "ДЕНЬГИ", "text": ["уходят на ремонт"], "start": {"cut": 1}},
+    {"num": 2, "name": "ВРЕМЯ", "text": ["полгода без выручки"], "start": {"cut": 2}},
+    {"num": 3, "name": "НЕРВЫ", "text": ["каждая ошибка — своя"], "start": {"cut": 3}}
+  ],
+  "answer": {"text": "ПЛАН ЗАРАНЕЕ", "at": {"word": "план"}, "start": {"cut": 4}},
+  "elements": [
+    {"type": "comment", "author": "подписчик", "text": "Сколько стоит открыть кофейню?", "at": 0, "end": {"cut": 0}, "y": 250},
+    {"type": "reaction", "kind": "wow", "at": {"word": "ого"}, "x": 810, "y": 760},
+    {"type": "counter"}
+  ],
+  "camera": {
+    "punches": [{"at": {"word": "ого"}, "scale": 1.1}, {"at": {"word": "план"}}],
+    "shake": {"word": "план"}
+  },
+  "captions": {
+    "accents": ["ремонт", "полгода", "ошибка"],
+    "suppress": [[0, {"cut": 1}], [{"word": "план"}, "END"]]
+  }
+}

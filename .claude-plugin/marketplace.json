@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "reels-motion",
+  "description": "Скилл reels-motion для Claude Code: моушн-оформление рилс с говорящей головой.",
+  "owner": {
+    "name": "Ilya Batko",
+    "url": "https://github.com/IliaBatko39"
+  },
+  "plugins": [
+    {
+      "name": "reels-motion",
+      "description": "Рилс с говорящей головой: резы по звуку, стоп-кадр с жестом на плашку, плашки, реакции, субтитры по словам, камера, SFX и музыка синтезом. Стиль выбирается в процессе: пресеты или свой.",
+      "source": "./",
+      "category": "design",
+      "homepage": "https://github.com/IliaBatko39/reels-motion",
+      "tags": ["reels", "shorts", "video", "motion", "captions", "ffmpeg", "playwright"]
+    }
+  ]
+}

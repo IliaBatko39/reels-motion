@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "reels-motion",
+  "version": "1.0.0",
+  "description": "Рилс с говорящей головой: из сырых вертикальных клипов — готовый ролик с моушн-оформлением. Резы по звуку, стоп-кадр с жестом на плашку, плашки, реакции, субтитры по словам, камера, SFX и музыка синтезом. Стиль — данные: пресеты premium, sticker, kinetic или свой по описанию и референсу.",
+  "author": {
+    "name": "Ilya Batko",
+    "url": "https://github.com/IliaBatko39"
+  },
+  "homepage": "https://github.com/IliaBatko39/reels-motion",
+  "repository": "https://github.com/IliaBatko39/reels-motion",
+  "license": "MIT",
+  "keywords": ["reels", "shorts", "video", "motion", "captions", "talking-head", "playwright", "ffmpeg"],
+  "skills": ["./"]
+}

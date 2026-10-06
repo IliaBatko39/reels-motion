@@ -1,0 +1,18 @@
+{
+  "fps": 30,
+  "sources": {"take1": "src/take1.mov", "take2": "src/take2.mov", "take3": "src/take3.mov"},
+  "stt": "work/stt",
+  "segments": [
+    {"src": "take1", "in": 1.40, "out": 9.85, "stage": "hook+lead"},
+    {"src": "take2", "in": 0.30, "out": 6.10, "stage": "block1"},
+    {"src": "take2", "in": 7.25, "out": 12.40, "stage": "block1"},
+    {"src": "take3", "in": 0.80, "out": 8.20, "stage": "block2"},
+    {"src": "take3", "in": 10.10, "out": 17.00, "stage": "block3"},
+    {"src": "take1", "in": 20.30, "out": 25.60, "stage": "cta"}
+  ],
+  "splits": {"hook+lead": {"word": "возвращаются", "edge": "end"}},
+  "freeze": {"src": "take1", "t": 1.95, "fingertip": [0.55, 0.61]},
+  "retime": {"take1": {"Вот": [1.48, 1.60]}},
+  "replace": {"кэшбэк": "кешбэк"},
+  "override": []
+}

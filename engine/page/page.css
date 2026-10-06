@@ -1,0 +1,10 @@
+/* Шрифты, которые идут со скиллом (OFL). Стили могут подключать свои через tokens.fonts.faces. */
+@font-face { font-family: 'Inter'; font-weight: 900; src: url('/fonts/Inter-Black.otf'); }
+@font-face { font-family: 'Inter'; font-weight: 800; src: url('/fonts/Inter-ExtraBold.otf'); }
+@font-face { font-family: 'Inter'; font-weight: 700; src: url('/fonts/Inter-Bold.otf'); }
+@font-face { font-family: 'Unbounded'; font-weight: 900; src: url('/fonts/Unbounded-900.ttf'); }
+
+html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+#stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+#stage.bg-grey { background: #6b6b6b; } #stage.bg-black { background: #222; } #stage.bg-white { background: #fff; }
+#stage .layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; pointer-events: none; }

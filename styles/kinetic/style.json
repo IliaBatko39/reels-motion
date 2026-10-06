@@ -1,0 +1,40 @@
+{
+  "title": "Кинетика и 3D",
+  "description": "Плиты влетают из глубины и садятся пружиной, карточки открываются как дверь на петлях, объёмная экструзия, красные скошенные теги, счётчик 1/N с перекатом цифры, кодовое слово по буквам в поле комментария. Субтитры — слова встают на ребре, ключевое на красной плашке. Whip + вспышка на каждом шве.",
+  "extends": "base",
+  "module": "kinetic.js",
+  "components": { "*": "kinetic" },
+  "extras": ["counter"],
+  "tokens": {
+    "color": { "ink": "#17161A", "paper": "#FFFFFF", "accent": "#FFC928", "accent2": "#E3242B", "plate": "#FFFFFF", "plate_text": "#17161A",
+               "tag": "#E3242B", "tag_text": "#FFFFFF", "line": "#FFC928", "shadow": "rgba(0,0,0,.45)", "depth": "#B9B1A3" },
+    "fonts": { "head": "'Unbounded', 'Inter', sans-serif", "head_weight": 900, "body": "'Inter', sans-serif", "body_weight": 900 },
+    "plate": { "shape": "extrude", "radius": 30, "outline": 0, "shadow": "0 26px 34px rgba(0,0,0,.45)", "skew": -9, "rotate": -3, "pointer": "arrow" },
+    "chip": { "radius": 60, "fill": "#FFFFFF", "text": "#17161A", "dot": "#FFC928" },
+    "text": { "accent_mark": "box" }
+  },
+  "motion": { "enter": "flip", "enter_dur": 0.4, "ease_in": "spring:0.45", "from_scale": 0.8, "from_rotate": 0, "from_y": 90, "text_reveal": "mask" },
+  "captions": { "variant": "pop", "size": 68, "stroke": 12, "stroke_color": "#000000", "accent_color": "#FFFFFF", "highlight": "#E3242B",
+                "max_chars": 16, "lead": 0.0333, "tail": 0.3 },
+  "camera": {
+    "punch_scale": 1.07, "punch_ease": "outBack:1.3", "punch_frames": 5, "punch_lead_f": 0, "punch_release": 0,
+    "punch_shake": { "amp": 5, "frames": 2 },
+    "shake": { "kind": "decay", "amp": 11, "frames": 3, "offset_f": 4 },
+    "frost": false, "interp": "lanczos"
+  },
+  "transitions": {
+    "whip": { "at": ["block", "cta", "answer"], "table": { "-2": [-70, 45], "-1": [-230, 130], "0": [230, 130], "1": [70, 45] }, "post": true,
+              "zoom": null, "sfx": "whoosh", "gain_db": -14 },
+    "flash": { "at": ["block", "cta", "answer"], "table": { "-1": 0.22, "0": 0.55, "1": 0.28, "2": 0.1 }, "color": "#FFF6E0", "post": true, "sfx": null },
+    "freeze_flash": { "table": { "0": 0.32, "1": 0.1 }, "color": "#FFF6E0" }
+  },
+  "audio": {
+    "voice": "highpass=f=80,acompressor=threshold=-20dB:ratio=2.5:attack=12:release=180:makeup=2",
+    "music": { "preset": "pulse", "bpm": 104, "level_lu": -7, "start": 0 },
+    "sidechain": { "threshold": 0.03, "ratio": 6, "attack": 20, "release": 350 },
+    "sfx": { "pop": -17, "click": -20, "whoosh": -17, "swoosh_down": -17, "riser": -18, "hit": -11, "ping": -17, "swish": -20 },
+    "freeze_accent": "hit", "freeze_accent_db": -13,
+    "master": { "lufs": -14, "tp": -1.5, "limit": 0.80 }
+  },
+  "blur": { "sub": 4, "shutter": 0.6 }
+}

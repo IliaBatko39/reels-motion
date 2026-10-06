@@ -1,0 +1,66 @@
+{
+  "title": "Стикер и маркер",
+  "description": "Белая вырубка с жёсткой тенью, жёлтый маркер с неровным краем, круглые стикеры-номера, пружины с перелётом и покачивание. Субтитры — pop каждого слова, ключевое на маркере.",
+  "extends": "base",
+  "module": "sticker.js",
+  "components": {
+    "*": "sticker"
+  },
+  "tokens": {
+    "color": {
+      "ink": "#17161A",
+      "paper": "#FFFFFF",
+      "accent": "#FFC928",
+      "accent2": "#FF4A1C",
+      "plate": "#FFFFFF",
+      "plate_text": "#17161A",
+      "tag": "#17161A",
+      "tag_text": "#FFFFFF",
+      "line": "#FF4A1C",
+      "shadow": "rgba(8,8,10,.55)"
+    },
+    "fonts": {
+      "head": "'Inter', sans-serif",
+      "head_weight": 900,
+      "body": "'Inter', sans-serif",
+      "body_weight": 800
+    },
+    "plate": {
+      "shape": "sticker",
+      "radius": 22,
+      "outline": 7,
+      "border_color": "#FFFFFF",
+      "shadow": "10px 12px 0 rgba(8,8,10,.55)",
+      "rotate": -3
+    },
+    "text": {
+      "accent_mark": "marker"
+    }
+  },
+  "motion": {
+    "enter": "spring",
+    "ease_in": "spring:0.45",
+    "from_scale": 0.55,
+    "from_rotate": 20
+  },
+  "captions": {
+    "variant": "marker",
+    "size": 84,
+    "stroke": 13,
+    "max_chars": 18,
+    "lead": 0.04,
+    "tail": 0.3
+  },
+  "camera": {
+    "punch_scale": 1.065,
+    "punch_release": 0.2
+  },
+  "audio": {
+    "music": {
+      "preset": "beat",
+      "bpm": 104,
+      "level_lu": -13
+    },
+    "freeze_accent": null
+  }
+}

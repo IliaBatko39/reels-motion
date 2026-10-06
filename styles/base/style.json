@@ -1,0 +1,120 @@
+{
+  "title": "Базовый",
+  "description": "Базовый стиль: все элементы рисуют базовые компоненты по токенам. Чистая белая плашка, Inter, мягкая пружина. Основа для новых стилей.",
+  "components": {},
+  "tokens": {
+    "color": {
+      "ink": "#17161A",
+      "paper": "#FFFFFF",
+      "accent": "#FFC928",
+      "accent2": "#FF4A1C",
+      "plate": "#FFFFFF",
+      "plate_text": "#17161A",
+      "tag": "#17161A",
+      "tag_text": "#FFFFFF",
+      "muted": "rgba(23,22,26,.62)",
+      "line": "#FFC928",
+      "shadow": "rgba(8,8,10,.45)"
+    },
+    "fonts": {
+      "head": "'Inter', sans-serif",
+      "head_weight": 900,
+      "body": "'Inter', sans-serif",
+      "body_weight": 800,
+      "check": [],
+      "faces": []
+    },
+    "plate": {
+      "shape": "rounded",
+      "radius": 28,
+      "padding": [24, 36],
+      "border": 0,
+      "border_color": "#FFFFFF",
+      "outline": 0,
+      "shadow": "0 18px 30px rgba(0,0,0,.35)",
+      "skew": 0,
+      "rotate": -2,
+      "glow": "",
+      "pointer": "arrow",
+      "texture": "none"
+    },
+    "chip": {
+      "radius": 60,
+      "fill": "#FFFFFF",
+      "text": "#17161A",
+      "dot": "#FFC928"
+    },
+    "text": {
+      "head_size": 84,
+      "sub_size": 42,
+      "tracking": "-0.015em",
+      "case": "upper",
+      "accent_mark": "marker"
+    },
+    "reaction": {
+      "size": 150,
+      "particles": 10,
+      "palette": ["#FFC928", "#FF4A1C", "#FFFFFF"]
+    }
+  },
+  "motion": {
+    "enter": "spring",
+    "enter_dur": 0.36,
+    "exit": "drop",
+    "exit_dur": 0.16,
+    "ease_in": "spring:0.5",
+    "ease_out": "inCubic",
+    "from_scale": 0.72,
+    "from_rotate": -9,
+    "from_y": 60,
+    "stagger": 0.06,
+    "text_reveal": "word",
+    "idle": { "float": 2.5, "rotate": 0.35, "shine_period": 1.9 }
+  },
+  "captions": {
+    "variant": "pop",
+    "font": "'Inter', sans-serif",
+    "weight": 900,
+    "size": 80,
+    "color": "#FFFFFF",
+    "stroke": 12,
+    "stroke_color": "#17161A",
+    "shadow": "0 6px 0 rgba(8,8,10,.45)",
+    "accent_color": "#FFC928",
+    "highlight": "#FFC928",
+    "case": "upper",
+    "bottom": 1488,
+    "max_w": 880,
+    "max_words": 3,
+    "max_chars": 16,
+    "pause": 0.35,
+    "lead": 0.04,
+    "tail": 0.3,
+    "split_on_cuts": false,
+    "hang": true
+  },
+  "camera": {
+    "punch_scale": 1.07,
+    "punch_ease": "outCubic",
+    "punch_frames": 5,
+    "punch_lead_f": 0,
+    "punch_release": 0.2,
+    "punch_shake": null,
+    "shake": { "kind": "table", "table": { "0": [12, -7], "1": [-9, 6], "2": [5, -3] }, "scale": 1.02, "offset_f": 0 },
+    "frost": false
+  },
+  "transitions": {
+    "whip": { "at": ["block"], "table": { "-2": [-80, 40], "-1": [-230, 90], "0": [230, 90], "1": [80, 40] }, "min_scale": 1.04, "zoom": null, "post": false, "sfx": "whoosh", "gain_db": -15 },
+    "flash": { "at": ["cta", "answer"], "color": "#FFF6E0", "peak": 0.9, "rise_f": 2, "tau": 0.07, "dur": 0.25, "table": null, "radial": null, "post": true, "sfx": "whoosh", "gain_db": -15 },
+    "freeze_flash": null
+  },
+  "audio": {
+    "voice": "highpass=f=80,acompressor=threshold=-21dB:ratio=2.5:attack=8:release=140:makeup=1.5",
+    "music": { "preset": "beat", "bpm": 104, "level_lu": -13 },
+    "sidechain": { "threshold": 0.04, "ratio": 3, "attack": 15, "release": 300 },
+    "sfx": { "pop": -17, "click": -21, "whoosh": -15, "swoosh_down": -19, "riser": -18, "hit": -11, "ping": -17, "swish": -20 },
+    "freeze_accent": "hit",
+    "master": { "lufs": -14, "tp": -1.5, "limit": 0.82 }
+  },
+  "blur": { "sub": 4, "shutter": 0.5 }
+}

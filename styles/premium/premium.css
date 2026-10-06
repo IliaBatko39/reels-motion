@@ -1,0 +1,8 @@
+/* Стиль premium. Все правила — внутри .s-premium (обёртка элемента). */
+.s-premium { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased; }
+.s-premium * { box-sizing: border-box; }
+.s-premium .abs { position: absolute; }
+.s-premium .nowrap { white-space: nowrap; }
+.s-premium .mask { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .04em; }
+.s-premium .mask > span { display: inline-block; }

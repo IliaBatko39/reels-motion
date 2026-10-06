@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "template": "A",
+  "fps": 30,
+  "base": "work/base.mov",
+  "words": "work/words.json",
+  "beats": "work/beats.json",
+  "faces": "work/faces.json",
+  "freeze": {"hold": 0.5},
+  "hook": {
+    "kicker": "ВОТ", "number": "3", "lines": ["ОШИБКИ", "КОФЕЙНИ"], "sub": ["из-за которых", "гости не возвращаются"],
+    "end": {"word": "возвращаются", "edge": "end"}, "number_at": {"word": "три"}, "accent_at": {"word": "не"}
+  },
+  "lead": {
+    "title": "3 ОШИБКИ",
+    "items": [
+      {"qual": "долгая", "term": "ОЧЕРЕДЬ", "dir": "up", "at_qual": {"word": "долгая"}, "at_term": {"word": "очередь"}},
+      {"qual": "разный", "term": "ВКУС", "dir": "down", "at_qual": {"word": "разный"}, "at_term": {"word": "вкус"}},
+      {"qual": "нет", "term": "ПОВОДА ВЕРНУТЬСЯ", "dir": "down", "at_qual": {"word": "нет"}, "at_term": {"word": "повода"}}
+    ]
+  },
+  "blocks": [
+    {"num": 1, "term": "ОЧЕРЕДЬ", "expl": ["гость ждёт дольше 3 минут"], "start": {"cut": 0}},
+    {"num": 2, "term": "ВКУС", "expl": ["каждый бариста варит по-своему"], "start": {"cut": 2}},
+    {"num": 3, "term": "ВОЗВРАТ", "expl": ["нет причины прийти снова"], "start": {"cut": 4}}
+  ],
+  "loops": [
+    {"text": "Ошибка №2", "start": {"cut": 2, "offset": -1.4}, "end": {"cut": 2}},
+    {"text": "Третья — самая дорогая", "start": {"cut": 4, "offset": -1.6}, "end": {"cut": 4}}
+  ],
+  "lists": [
+    {"items": [
+      {"text": "КАРТА ГОСТЯ", "at": {"word": "карта"}, "icon": "heart"},
+      {"text": "КОФЕ В ПОДАРОК", "at": {"word": "подарок"}, "icon": "gift"},
+      {"text": "ПРЕДЗАКАЗ", "at": {"word": "предзаказ"}, "icon": "phone"}
+    ], "end": {"cut": 5}}
+  ],
+  "cta": {"word": "КОФЕ", "caption": "пиши в комментариях", "caption_at": {"word": "пиши"}, "word_at": {"word": "кофе", "after": {"word": "пиши"}}, "start": {"cut": 5}},
+  "elements": [
+    {"type": "reaction", "kind": "fire", "at": {"word": "подарок"}, "x": 820, "y": 980},
+    {"type": "progress"}
+  ],
+  "camera": {
+    "shot_scale": [1.0, 1.0, 1.065, 1.0, 1.065, 1.0],
+    "punches": [{"at": {"word": "возвращаются"}}, {"at": {"word": "дольше"}}, {"at": {"word": "по-своему"}}],
+    "shake": {"word": "кофе", "after": {"word": "пиши"}}
+  },
+  "captions": {
+    "accents": ["очередь", "вкус", "повода", "минут"],
+    "suppress": [[0, {"cut": 0}], [{"word": "пиши"}, "END"]]
+  }
+}
