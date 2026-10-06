@@ -301,7 +301,8 @@ function mountCounter(stage) {
 }
 
 function mountTerm(stage, b, i) {
-  const S = b.S, T_IN = S + 2 * F, T_OUT = S + HOLD;
+  const nextS = i + 1 < BLOCKS.length ? BLOCKS[i + 1].S : T_CTA;
+  const S = b.S, T_IN = S + 2 * F, T_OUT = Math.min(S + HOLD, nextS - 9 * F);   // короткий блок: карточка уходит до следующей
   const L = h('div', 'layer', stage, { perspective: '1300px', perspectiveOrigin: '260px 340px' });
   const X0 = 298, MAXW = 940 - X0;
   const card = h('div', 'abs p3d', L, { left: X0, top: 248, transformOrigin: '0 50%' });
