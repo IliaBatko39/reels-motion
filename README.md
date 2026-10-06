@@ -26,6 +26,9 @@
 | `kinetic` | плиты влетают из глубины, двери на петлях, экструзия, красные скошенные теги, счётчик 1/N, whip и вспышка на швах |
 | `base` | нейтральная основа: всё нарисовано по токенам — с неё удобно начинать свой стиль |
 
+<p align="center"><img src="docs/preview_premium.gif" width="240" alt="premium"> <img src="docs/preview_sticker.gif" width="240" alt="sticker"> <img src="docs/preview_kinetic.gif" width="240" alt="kinetic"></p>
+<p align="center"><sub>premium · sticker · kinetic — фрагменты настоящих роликов: стоп-кадр с жестом на плашку и вход первого блока</sub></p>
+
 Пресеты — примеры, а не предел. Свои стили лежат в `~/.reels-motion/styles` (или в каталогах из `REEL_STYLES`) и подхватываются сами; обновление скилла их не трогает. Как устроен стиль и как сделать новый — [reference/styles.md](reference/styles.md).
 
 ## Установка
