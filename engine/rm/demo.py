@@ -66,8 +66,8 @@ def background(path, dur, cuts, seed=3, src_video=None):
             img = top * (1 - g) + np.array([12, 12, 16], np.float32) * g
             lx, ly = W * (0.3 + 0.4 * np.sin(t * 0.6 + k)), H * 0.25
             img += 70 * np.exp(-(((xx - lx) / 420) ** 2 + ((yy - ly) / 420) ** 2))[..., None]
-            cx, cy = W / 2, H * 0.36
-            head = (((xx - cx) / (150 * z)) ** 2 + ((yy - cy - 6 * np.sin(t * 2.1)) / (190 * z)) ** 2) < 1
+            cx, cy = W / 2, H * 0.32
+            head = (((xx - cx) / (125 * z)) ** 2 + ((yy - cy - 6 * np.sin(t * 2.1)) / (160 * z)) ** 2) < 1
             body = (((xx - cx) / (380 * z)) ** 2 + ((yy - (cy + 560 * z)) / (420 * z)) ** 2) < 1
             img[head | body] = img[head | body] * 0.25 + np.array([18, 16, 20], np.float32) * 0.75
             enc.stdin.write(np.clip(img, 0, 255).astype(np.uint8).tobytes())
@@ -173,10 +173,10 @@ def make_project(out, template='A', project_tl=None):
         segs = []
         for k in range(len(bounds) - 1):
             z = 1.0 if k % 2 == 0 else 1.22
-            cx, cy = W / 2, H * 0.36
-            med = [round(cx - 150 * z), round(cy - 196 * z), round(cx + 150 * z), round(cy + 196 * z)]
+            cx, cy = W / 2, H * 0.32
+            med = [round(cx - 125 * z), round(cy - 166 * z), round(cx + 125 * z), round(cy + 166 * z)]
             segs.append({'seg': k, 't0': bounds[k], 't1': bounds[k + 1], 'n': 0, 'approx': False, 'med': med,
-                         'box': [med[0] - 18, med[1] - 24, med[2] + 18, med[3] + 24], 'center': [cx, cy]})
+                         'box': [med[0] - 15, med[1] - 20, med[2] + 15, med[3] + 20], 'center': [cx, cy]})
         json.dump({'freeze': segs[0]['box'], 'segments': segs}, open(os.path.join(out, 'faces.json'), 'w'), indent=1)
         tl['faces'] = 'faces.json'
     p = os.path.join(out, 'timeline.json')

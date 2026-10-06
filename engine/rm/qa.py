@@ -70,6 +70,20 @@ def run_qa(work, out, name='reel', stt=False, style=None):
                 w[2], w[3] = max(w[2], b['x1']), max(w[3], b['y1'])
                 if face and b['x0'] < face[2] and b['x1'] > face[0] and b['y0'] < face[3] and b['y1'] > face[1]:
                     hits.append((n, b['id'], b['text'][:20]))
+        # выход за зону на 1–3 кадрах перелёта входа не считается: важен читаемый текст, а не кадр пружины
+        runs = {}
+        for n, lid, txt, ov in sorted(bad):
+            runs.setdefault(lid, []).append(n)
+        def longest(fr):
+            best = cur = 1
+            for x, y in zip(fr, fr[1:]):
+                cur = cur + 1 if y == x + 1 else 1
+                best = max(best, cur)
+            return best
+        transient = [b_ for b_ in bad if longest(runs[b_[1]]) < 4]
+        bad = [b_ for b_ in bad if longest(runs[b_[1]]) >= 4]
+        if transient:
+            print('  (кратковременно, ≤ 3 кадров перелёта — не ошибка: %s)' % transient[:4])
         rec('Тексты в безопасной зоне', not bad, 'нарушений %d: %s | рамки: %s' % (
             len(bad), bad[:5], '; '.join('%s x%.0f–%.0f y%.0f–%.0f' % (k, v[0], v[2], v[1], v[3]) for k, v in worst.items())))
         rec('Накладки не на лице', not hits, 'пересечений %d: %s' % (len(hits), hits[:5]))

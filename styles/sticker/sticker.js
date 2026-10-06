@@ -665,8 +665,11 @@ function blockEl(b, ctx) {
   const CK = checkShows(P);
   const sh = CK && CK.shows.find(S => S.check === b.index);
   const s = sh ? sh.e + 0.06 : b.s + 0.1;
-  const spec = { id: b.id, num: b.num, term: b.term.toUpperCase(), expl: b.expl.join(' '), s, dock: s + 3.12, e: b.e };
-  ctx.sfx(spec.s, 'pop', b.id); ctx.sfx(spec.dock + 0.15, 'swoosh_down', b.id);
+  // «док» в угол через 3,12 с; короткий блок — без дока
+  const dock = s + 3.12 < b.e - 0.4 ? s + 3.12 : 1e9;
+  const spec = { id: b.id, num: b.num, term: b.term.toUpperCase(), expl: b.expl.join(' '), s, dock, e: b.e };
+  ctx.sfx(spec.s, 'pop', b.id);
+  if (dock < 1e8) ctx.sfx(dock + 0.15, 'swoosh_down', b.id);
   return makeHeader(spec);
 }
 
